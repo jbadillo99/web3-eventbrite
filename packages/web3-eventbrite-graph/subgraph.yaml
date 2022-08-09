@@ -1,6 +1,8 @@
 specVersion: 0.0.1
 schema:
   file: ./schema.graphql
+features:
+  - ipfsOnEthereumContracts
 dataSources:
   - kind: ethereum
     name: Web3EventBrite
@@ -8,15 +10,16 @@ dataSources:
     source:
       address: "0x7785e0a34C04c1c87269FF8469a68e0EE2867a93"
       abi: Web3EventBrite
+      startBlock: 26(27523520)
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - ConfirmedAttendee
-        - DepositsPaidOut
-        - NewEventCreated
-        - NewRSVP
+        - Event
+        - Account
+        - RSVP
+        - Confirmation
       abis:
         - name: Web3EventBrite
           file: ./abis/Web3EventBrite.json
