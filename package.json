@@ -2,6 +2,6 @@
     "name": "web3-eventbrite",
     "private": true,
     "workspaces": [
-      "packages/*"
+        "packages/*"
     ]
 }
