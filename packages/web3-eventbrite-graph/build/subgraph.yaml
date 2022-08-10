@@ -1,6 +1,6 @@
 specVersion: 0.0.4
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 features:
   - ipfsOnEthereumContracts
 dataSources:
@@ -22,7 +22,7 @@ dataSources:
         - Confirmation
       abis:
         - name: Web3EventBrite
-          file: ./abis/Web3EventBrite.json
+          file: Web3EventBrite/abis/Web3EventBrite.json
       eventHandlers:
         - event: ConfirmedAttendee(bytes32,address)
           handler: handleConfirmedAttendee
@@ -32,4 +32,4 @@ dataSources:
           handler: handleNewEventCreated
         - event: NewRSVP(bytes32,address)
           handler: handleNewRSVP
-      file: ./src/web-3-event-brite.ts
+      file: Web3EventBrite/Web3EventBrite.wasm
