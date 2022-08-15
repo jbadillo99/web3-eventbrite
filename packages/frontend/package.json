@@ -1,5 +1,5 @@
 {
-  "name": "@web3-eventbrite/frontend",
+  "name": "web3rsvp-frontend",
   "version": "1.0.0",
   "description": "",
   "main": "apollo-client.js",
@@ -16,7 +16,7 @@
     "@rainbow-me/rainbowkit": "^0.2.2",
     "ethers": "^5.6.6",
     "graphql": "^16.5.0",
-    "next": "^12.2.4",
+    "next": "^12.2.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "wagmi": "^0.4.5",
