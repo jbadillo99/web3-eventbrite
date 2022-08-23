@@ -21,16 +21,16 @@ contract Web3EventBrite {
 
     // The CreateEvent struct provides a struct of with specific event attributes
     struct CreateEvent {
-        bytes32 eventId;
-        string eventDataCID;    //Hash to store in IPFS to avoid storing more data on chain
-        address eventOwner;
-        uint256 eventTimestamp;
-        uint256 deposit;
-        uint256 maxCapacity;
-        address[] confirmedRSVPs;
-        address[] claimedRSVPs;
-        bool paidOut;
-    }
+       bytes32 eventId;
+       string eventDataCID;  //Hash to store in IPFS to avoid storing more data on chain
+       address eventOwner;
+       uint256 eventTimestamp;
+       uint256 deposit;
+       uint256 maxCapacity;
+       address[] confirmedRSVPs;
+       address[] claimedRSVPs;
+       bool paidOut;
+   }
 
     // Use a dictionary to map event Id to an event struct
     mapping(bytes32 => CreateEvent) public idToEvent;
@@ -38,12 +38,12 @@ contract Web3EventBrite {
     /*
         The createNewEvent function uses external visibility to perform better which ends up saving on gas.
      */
-    function createNewEvent(
-        uint256 eventTimestamp,
-        uint256 deposit,
-        uint256 maxCapacity,
-        string calldata eventDataCID // The calldata memory type is an immutable and temporary memory location
-    ) external{
+   function createNewEvent(
+    uint256 eventTimestamp,
+    uint256 deposit,
+    uint256 maxCapacity,
+    string calldata eventDataCID // The calldata memory type is an immutable and temporary memory location
+    ) external {
 
         /*
             Create an eventId by hashing using a unique hash value based on the specific parameters of the function.
@@ -62,6 +62,7 @@ contract Web3EventBrite {
         address[] memory confirmedRSVPs;
         address[] memory claimedRSVPs;
 
+        // Create an event and add it to the hashmap usince its eventId
         idToEvent[eventId] = CreateEvent(
             eventId,
             eventDataCID,
@@ -74,6 +75,9 @@ contract Web3EventBrite {
             false
         );
 
+        // Make sure that eventId is unique
+        require(idToEvent[eventId].eventTimestamp == 0, "ALREADY REGISTERED");
+
         // Expose the data from the createNewEvent function
         emit NewEventCreated(
             eventId,
@@ -83,6 +87,7 @@ contract Web3EventBrite {
             deposit,
             eventDataCID
         );
+
     }
 
     function createNewRSVP(bytes32 eventId) external payable {
@@ -136,10 +141,14 @@ contract Web3EventBrite {
         // Require that the attendee has not paid the owner yet
         require(myEvent.paidOut == false, "ATTENDEE HAS ALREADY PAID");
 
+        // Add current attendee to the claimed rsvps list
+        myEvent.claimedRSVPs.push(attendee);
+
         // Send Eth back to the staker
         // This is where the calls are explained: https://solidity-by-example.org/sending-ether/
         (bool sent,) = attendee.call{value: myEvent.deposit}("");
 
+        // Remove the current attendee from the claimed rsvps list if the cryptocurrency could not be sent
         if(sent == false){
             myEvent.claimedRSVPs.pop();
         }
@@ -165,14 +174,14 @@ contract Web3EventBrite {
 
     function withdrawUnclaimedDeposits(bytes32 eventId) external {
         
-        // Get event from mapping usinfg 
+        // Get event from mapping using eventId
         CreateEvent memory myEvent = idToEvent[eventId];
 
         // Require that the deposits has not been paid out yet
         require(!myEvent.paidOut,"ALREADY PAID OUT");
 
         // Require that it has been over a week from the event date
-        require(myEvent.eventTimestamp <= (block.timestamp + 7 days), "HAS NOT PASSED 7 DAYS SINCE EVENT");
+        require( (myEvent.eventTimestamp + 7 days) <= (block.timestamp), "HAS NOT PASSED 7 DAYS SINCE EVENT");
 
         // Require that the owner of the contract is executing this method
         require(msg.sender == myEvent.eventOwner,"NOT AUTHORIZED");
@@ -190,8 +199,8 @@ contract Web3EventBrite {
             myEvent.paidOut == false;
         }
 
-        require(sent,"FAILED TO SEND ETHER: IN WITHDRAW");
-
+        require(sent,"FAILED TO SEND ETHER: withdrawUnclaimedDeposits");
+        
         emit DepositsPaidOut(eventId);
     }
 

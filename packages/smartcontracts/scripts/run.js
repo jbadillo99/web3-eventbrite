@@ -15,6 +15,7 @@ const main = async () => {
     // Define event data
     let deposit = hre.ethers.utils.parseEther("1");
     let maxCapacity = 3;
+    
     let timestamp = 1718926200;
     let eventDataCID = "bafybeibhwfzx6oo5rymsxmkdxpmkfwyvbjrrwcl7cekmbzlupmp5ypkyfi";
 
@@ -35,19 +36,19 @@ const main = async () => {
 
     // By default hardhat calls contracts from the deployer wallet address
     // To call contract functions from another wallet use the .connect(address) modifier
-    txn = await rsvpContract.createNewRSVP(eventId, {value: deposit});
+    txn = await rsvpContract.createNewRSVP(eventId, { value: deposit });
     wait = await txn.wait();
     console.log("NEW RSVP: ", wait.events[0].event, wait.events[0].args);
 
     txn = await rsvpContract
         .connect(address1)
-        .createNewRSVP(eventId, {value:deposit});
+        .createNewRSVP(eventId, { value:deposit });
     wait = await txn.wait();
     console.log("NEW RSVP: ", wait.events[0].event, wait.events[0].args);
 
     txn = await rsvpContract
         .connect(address2)
-        .createNewRSVP(eventId, {value:deposit});
+        .createNewRSVP(eventId, { value:deposit });
     wait = await txn.wait();
     console.log("NEW RSVP: ", wait.events[0].event, wait.events[0].args);
 
@@ -56,12 +57,15 @@ const main = async () => {
     txn = await rsvpContract.confirmAllAttendees(eventId);
     wait = await txn.wait();
     wait.events.forEach((event) => 
-        console.log("CONFIRMED", event.args.attendeeAddress)
+        console.log("CONFIRMED:", event.args.attendeeAddress)
     );
     
     // Wait 10 years
     // Hard hat allows us to simulate time passing
-    await hre.network.provider.send("evm_increaseTime", [15778800000000]);
+    // Epoch timestamp: 1976216226000 in ms
+    // Date and time (GMT): Sunday, August 15, 2032 8:57:06 PM
+    await hre.network.provider.send("evm_increaseTime", [1976216226000]);
+
     txn = await rsvpContract.withdrawUnclaimedDeposits(eventId);
     wait = await txn.wait();
     console.log("WITHDRAWN: ", wait.events[0].event, wait.events[0].args);

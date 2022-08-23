@@ -6,6 +6,7 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
+// Create an async function to Deploy the contract
 const main = async() => {
   const rsvpContractFactory = await hre.ethers.getContractFactory("Web3EventBrite");
   const rsvpContract = await rsvpContractFactory.deploy();
