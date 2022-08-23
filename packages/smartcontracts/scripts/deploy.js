@@ -7,7 +7,7 @@
 const hre = require("hardhat");
 
 // Create an async function to Deploy the contract
-const main = async() => {
+const main = async () => {
   const rsvpContractFactory = await hre.ethers.getContractFactory("Web3EventBrite");
   const rsvpContract = await rsvpContractFactory.deploy();
   await rsvpContract.deployed();
@@ -15,7 +15,7 @@ const main = async() => {
 
 };
 
-const runMain = async() => {
+const runMain = async () => {
   try {
     await main();
     process.exit(0);

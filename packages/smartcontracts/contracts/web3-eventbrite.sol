@@ -76,7 +76,7 @@ contract Web3EventBrite {
         );
 
         // Make sure that eventId is unique
-        require(idToEvent[eventId].eventTimestamp == 0, "ALREADY REGISTERED");
+        //require(idToEvent[eventId].eventTimestamp == 0, "ALREADY REGISTERED");
 
         // Expose the data from the createNewEvent function
         emit NewEventCreated(
