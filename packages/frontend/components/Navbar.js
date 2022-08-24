@@ -2,7 +2,16 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navmenu from "./Navmenu";
 
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount, useDisconnect } from "wagmi";
+
 export default function Navbar() {
+
+  // Use the useAccount hook to access wallet if it exists
+  const { data: account } = useAccount();
+
+  // Use the useDisconnect hook to disconnect the wallet after it has already been connected
+  const { disconnect } = useDisconnect();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -28,6 +37,11 @@ export default function Navbar() {
                   Create Event
                 </a>
               </Link>
+              { account ? (
+                <Navmenu account={account} disconnect={ ()=> disconnect()} />
+              ): (
+                <ConnectButton/>
+              )}
             </div>
           </div>
         </nav>
