@@ -3,7 +3,7 @@ const { resolve } = require("path");
 
 // Check if the incoming request is a post method or return a HTTP 405 status code
 export default async function handler(req, res) {
-    if (req.method == "POST") {
+    if (req.method === "POST") {
         // Store the data from the event using request
         return await storeEventData(req, res);
     } else {
