@@ -7,7 +7,7 @@ export default function Landing({ children }) {
         <title>Web3EventBrite</title>
         <meta
           name="description"
-          content="Find, join, and create virtual events with your web3 frens"
+          content="Find, join, and create virtual events using your crypto wallet"
         />
       </Head>
       <section className="py-12">
@@ -17,7 +17,7 @@ export default function Landing({ children }) {
             <span className="text-indigo-600">metaverse</span>
           </h1>
           <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-            Find, join, and create virtual events with your web3 frens!
+            Find, join, and create virtual events using your crypto wallet
           </p>
         </div>
       </section>
