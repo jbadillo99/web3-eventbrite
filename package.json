@@ -3,5 +3,9 @@
     "private": true,
     "workspaces": [
         "packages/*"
-    ]
+    ],
+    "dependencies": {
+        "@rainbow-me/rainbowkit": "^0.4.6",
+        "@tanstack/react-query": "^4.1.3"
+    }
 }
