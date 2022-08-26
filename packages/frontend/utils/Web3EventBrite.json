@@ -1,7 +1,4 @@
 {
-  "_format": "hh-sol-artifact-1",
-  "contractName": "Web3EventBrite",
-  "sourceName": "contracts/web3-eventbrite.sol",
   "abi": [
     {
       "anonymous": false,

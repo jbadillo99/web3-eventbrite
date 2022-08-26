@@ -49,12 +49,9 @@ async function makeFileObjects(body) {
 
     // Create a new file containing image and the event data
     files.push(new File([buffer], "data.json"));
+    console.log('In Files: ', files);
 
     return files;
-}
-
-function makeStorageClient() {
-    return new Web3Storage( { token: process.env.WEB3STORAGE_TOKEN});
 }
 
 async function storeFiles(files) {
@@ -68,5 +65,7 @@ async function storeFiles(files) {
     return cid;
 }
 
-
+function makeStorageClient() {
+    return new Web3Storage( { token: process.env.WEB3STORAGE_TOKEN});
+}
 

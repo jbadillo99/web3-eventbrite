@@ -4,7 +4,7 @@ export default function Landing({ children }) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <Head>
-        <title>web3rsvp</title>
+        <title>Web3EventBrite</title>
         <meta
           name="description"
           content="Find, join, and create virtual events with your web3 frens"

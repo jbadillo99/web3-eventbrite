@@ -25,9 +25,10 @@ function connectContract() {
             console.log("Ethereum object doesn't exist");
         }
 
-    } catch(err) {
+    } catch (err) {
         console.log("ERROR: ", err);
     }
     return rsvpContract;
 }
+
 export default connectContract;

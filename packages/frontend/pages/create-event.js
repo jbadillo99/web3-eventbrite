@@ -13,10 +13,7 @@ import Alert from "../components/Alert";
 export default function CreateEvent() {
 
   const { data: account } = useAccount();
-  const [success, setSuccess] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(null);
-  const [eventID, setEventID] = useState(null);
+
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
@@ -24,6 +21,11 @@ export default function CreateEvent() {
   const [refund, setRefund] = useState("");
   const [eventLink, setEventLink] = useState("");
   const [eventDescription, setEventDescription] = useState("");
+
+  const [success, setSuccess] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(null);
+  const [eventID, setEventID] = useState(null);
 
 
   // Handle the submition when clicking the create button 
@@ -36,7 +38,7 @@ export default function CreateEvent() {
       description: eventDescription,
       link: eventLink,
       image: getRandomImage(),
-    }
+    };
 
     try {
       // Get the response from the API endpoint store-event-data
@@ -51,10 +53,13 @@ export default function CreateEvent() {
         alert(`Oops! Something went wrong. Please try again. Error Code: ${response.status}`);
       } else {
         console.log("Form successfully submitted!");
+        console.log(response);
+        console.log("In handle submit");
         let responseJSON = await response.json();
 
         // Create the event using the content identifier
         await createEvent(responseJSON.cid);
+
       }
       // If the response is not successful, do not take them to the success page
     } catch(error) {
@@ -83,6 +88,7 @@ export default function CreateEvent() {
         setLoading(true);
         console.log("Minting...", txn.hash);
         let wait = await txn.wait();
+        console.log(`In Create Event`, wait.events[0]);
         console.log("Minting --", txn.hash);
 
         setEventID(wait.events[0].args[0]);
@@ -180,6 +186,7 @@ export default function CreateEvent() {
                           value={eventName}
                           onChange={(e) => setEventName(e.target.value)}
                         />
+                        { console.log("In Create Event, Event Name: ", eventName) }
                       </div>
                     </div>
 
