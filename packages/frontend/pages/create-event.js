@@ -158,7 +158,7 @@ export default function CreateEvent() {
           )}
           {
             !success && (
-              <h1 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl md:text-5xl mb-4">
+              <h1 className="text-3xl tracking-tight font-extrabold light:text-gray-900 dark:text-gray-700 sm:text-4xl md:text-5xl mb-4">
                 Create your virtual event
               </h1>
           )}

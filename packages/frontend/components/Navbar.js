@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navmenu from "./Navmenu";
-
+import ThemeSwitch from "./ThemeSwitch";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect } from "wagmi";
 
@@ -20,7 +20,7 @@ export default function Navbar() {
 
   return (
     mounted && (
-      <header className="bg-white border-b-2 border-gray-100">
+      <header className="light:bg-white dark:bg-gray-990 border-b-2 border-gray-100">
         <nav
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           aria-label="Top"
@@ -37,6 +37,7 @@ export default function Navbar() {
                   Create Event
                 </a>
               </Link>
+              <ThemeSwitch/>
               { account ? (
                 <Navmenu account={account} disconnect={ ()=> disconnect()} />
               ): (

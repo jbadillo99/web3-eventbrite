@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import "../styles/globals.css";
-
+import { ThemeProvider } from 'next-themes';
+import ThemeSwitch from "../components/ThemeSwitch";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
@@ -36,14 +37,16 @@ const wagmiClient = createClient({
 // Wrap the application with WagmiConfig and Rainbowkit provider hooks to allow users to connect their wallets
 export default function MyApp({ Component, pageProps }) {
   return (
-    <WagmiConfig client={ wagmiClient }>
-      <RainbowKitProvider chains={ chains }>
-        <ApolloProvider client={ client }>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout> 
-        </ApolloProvider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <ThemeProvider attribute="class">
+      <WagmiConfig client={ wagmiClient }>
+        <RainbowKitProvider chains={ chains }>
+          <ApolloProvider client={ client }>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout> 
+          </ApolloProvider>
+        </RainbowKitProvider>
+      </WagmiConfig> 
+    </ThemeProvider>
   );
 }

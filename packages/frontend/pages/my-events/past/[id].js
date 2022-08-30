@@ -85,7 +85,7 @@ function PastEvent({ event }) {
     mounted && (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Head>
-          <title>My Dashboard | web3rsvp</title>
+          <title>My Dashboard | Web3EventBrite</title>
           <meta name="description" content="Manage your events and RSVPs" />
         </Head>
         <div className="flex flex-wrap py-8">

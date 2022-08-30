@@ -73,7 +73,7 @@ export default function MyPastEvents() {
                           id={event.id}
                           name={event.name}
                           eventTimestamp={event.eventTimestamp}
-                          imageURL={imageURL}
+                          imageURL={event.imageURL}
                         />
                         <Link href={`/my-events/past/${event.id}`}>
                           <a className="text-indigo-800 text-sm truncate hover:underline">
